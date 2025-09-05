@@ -1,79 +1,93 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Settings, Smartphone, Cloud, Shield, BarChart3 } from 'lucide-react';
+import { Link as ScrollLink } from 'react-scroll';
 import { Button } from '@/components/ui/button';
+import { Cog, Code, Cloud, ShieldCheck, BarChart } from 'lucide-react';
+
+const serviceHighlights = [
+  { icon: Cog, text: 'Custom Software' },
+  { icon: Code, text: 'Web & Mobile Apps' },
+  { icon: Cloud, text: 'Cloud & DevOps' },
+  { icon: ShieldCheck, text: 'Cybersecurity' },
+  { icon: BarChart, text: 'Data & AI' },
+];
 
 const Hero = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-         top: offsetPosition,
-         behavior: "smooth"
-      });
-    }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+    },
   };
 
-  const services = [
-    { icon: Settings, label: 'Custom Software' },
-    { icon: Smartphone, label: 'Web & Mobile' },
-    { icon: Cloud, label: 'Cloud & DevOps' },
-    { icon: Shield, label: 'Cybersecurity' },
-    { icon: BarChart3, label: 'Data & AI' }
-  ];
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
 
   return (
-    <section id="home" className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
-        <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1974&auto=format&fit=crop')",
+    <section id="home" className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
+      <motion.div 
+        className="absolute inset-0 z-0"
+        animate={{
+          background: [
+            "linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 100%)",
+            "linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%)",
+            "linear-gradient(135deg, #f3e5f5 0%, #e0f7fa 100%)",
+          ]
         }}
-      >
-        <div className="absolute inset-0 bg-slate-900/60 backdrop-brightness-75" />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4">
+        transition={{
+          duration: 15,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
+      <div className="absolute inset-0 bg-grid-gray-200/[0.4] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)]"></div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight">
-            Smart IT.
-            <span className="block text-blue-400">Simple Solutions.</span>
-          </h1>
-          
-          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-200">
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl"
+          >
+            Smart IT. <span className="text-blue-600">Simple Solutions.</span>
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl"
+          >
             From strategy to execution, Infynix Solutions builds technology that grows with you.
-          </p>
+          </motion.p>
+          <motion.div variants={itemVariants} className="mt-10">
+            <ScrollLink to="services" smooth={true} duration={500} offset={-80}>
+              <Button size="lg">Start Your Journey</Button>
+            </ScrollLink>
+          </motion.div>
+        </motion.div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              onClick={scrollToContact}
-              size="lg"
-              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-primary-foreground px-8 py-3 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105"
-            >
-              Get in touch
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-          
-          <div className="mt-12">
-            <p className="text-sm font-medium text-slate-300 uppercase tracking-wider">Our Core Expertise</p>
-            <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2">
-              {services.map((service) => (
-                <div key={service.label} className="flex items-center space-x-2 text-slate-200">
-                  <service.icon className="h-4 w-4 text-blue-400" />
-                  <span className="font-medium text-sm">{service.label}</span>
-                </div>
-              ))}
-            </div>
+        <motion.div
+          className="mt-16 lg:mt-24 max-w-5xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 sm:gap-x-12">
+            {serviceHighlights.map((item, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="flex items-center space-x-2 text-gray-600"
+              >
+                <item.icon className="h-5 w-5 text-blue-500" />
+                <span className="text-sm font-medium">{item.text}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

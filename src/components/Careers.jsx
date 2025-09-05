@@ -1,90 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Zap, Award, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Code, Cloud, PenTool, BarChart } from 'lucide-react';
+import { ApplicationForm } from '@/components/ApplicationForm';
+
+const jobRoles = [
+  { icon: Code, title: 'Developer', location: 'Bangalore', color: 'blue' },
+  { icon: Cloud, title: 'Cloud Engineer', location: 'Remote', color: 'green' },
+  { icon: PenTool, title: 'Designer', location: 'Remote', color: 'green' },
+  { icon: BarChart, title: 'Analyst', location: 'Bangalore', color: 'blue' },
+];
+
+const LocationBadge = ({ location, color }) => {
+  const badgeColor = {
+    green: 'bg-green-100 text-green-800',
+    blue: 'bg-blue-100 text-blue-800',
+    gray: 'bg-gray-100 text-gray-800'
+  };
+  return (
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeColor[color]}`}>
+      {location}
+    </span>
+  );
+};
 
 const Careers = () => {
-  const openEmailClient = () => {
-    window.location.href = "mailto:careers@infynixsolutions.in";
-  };
-
-  const culturePoints = [
-    {
-      icon: Zap,
-      title: 'Growth-Focused',
-      description: 'We invest in your development with continuous learning and career advancement opportunities.'
-    },
-    {
-      icon: Users,
-      title: 'Collaborative Culture',
-      description: 'Work with talented professionals in a supportive, team-oriented environment.'
-    },
-    {
-      icon: Award,
-      title: 'Innovation-Driven',
-      description: 'Be part of a culture that encourages creativity and the pursuit of cutting-edge solutions.'
-    }
-  ];
-
-  const openPositions = [ 'Senior Developer', 'Cloud Engineer', 'UI/UX Designer', 'Data Analyst' ];
-
-  const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.3 },
-    transition: { duration: 0.6, ease: 'easeOut' }
-  };
+  const [selectedJob, setSelectedJob] = useState(null);
 
   return (
-    <section id="careers" className="section-padding bg-background">
-      <div className="max-w-7xl mx-auto">
-        <motion.div {...fadeIn} className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-foreground mb-4">Build Tomorrow’s Tech With Us</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Join a growth-focused, collaborative, and innovation-driven team dedicated to shaping the future of technology.
-          </p>
-        </motion.div>
-
-        <motion.div {...fadeIn} className="grid md:grid-cols-3 gap-8 mb-20">
-          {culturePoints.map((point, index) => (
-            <motion.div
-              key={point.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              viewport={{ once: true, amount: 0.5 }}
-              className="text-center p-6"
-            >
-              <div className="inline-flex p-3 bg-blue-100 text-blue-600 rounded-lg mb-5">
-                <point.icon className="h-7 w-7" />
-              </div>
-              <h4 className="text-xl font-bold text-foreground mb-2">{point.title}</h4>
-              <p className="text-muted-foreground">{point.description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div {...fadeIn} className="bg-secondary rounded-lg p-8 lg:p-12 text-center">
-          <h3 className="text-3xl font-bold text-foreground mb-4">Current Open Roles</h3>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">We're always looking for passionate people to join our team. Check out our open positions below.</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-10">
-            {openPositions.map((position) => (
-              <div key={position} className="flex flex-col items-center text-center p-4 bg-background rounded-lg border">
-                <Briefcase className="h-7 w-7 text-blue-600 mb-3" />
-                <span className="font-semibold text-foreground text-sm sm:text-base">{position}</span>
-              </div>
-            ))}
-          </div>
-          <Button
-            onClick={openEmailClient}
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-primary-foreground px-8 text-base font-semibold rounded-full transition-all duration-300 transform hover:scale-105"
+    <>
+      <section id="careers" className="py-20 lg:py-32 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
           >
-            Apply Now
-          </Button>
-        </motion.div>
-      </div>
-    </section>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Build tomorrow’s tech with us.
+            </h2>
+            <p className="mt-4 text-lg text-gray-600">
+              Growth-focused, collaborative, innovation-driven. We're always looking for talented individuals who are passionate about technology.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {jobRoles.map((role, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="text-center hover:shadow-xl transition-shadow duration-300 h-full flex flex-col justify-between">
+                  <CardContent className="pt-6">
+                    <role.icon className="h-10 w-10 text-blue-600 mx-auto" />
+                    <h3 className="mt-4 text-lg font-semibold">{role.title}</h3>
+                    <div className="mt-2">
+                      <LocationBadge location={role.location} color={role.color} />
+                    </div>
+                  </CardContent>
+                  <div className="p-4">
+                    <Button variant="outline" onClick={() => setSelectedJob(role.title)}>Apply Now</Button>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <ApplicationForm
+        isOpen={!!selectedJob}
+        onClose={() => setSelectedJob(null)}
+        jobTitle={selectedJob}
+      />
+    </>
   );
 };
 
