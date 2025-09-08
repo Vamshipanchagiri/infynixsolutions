@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 const Contact = () => {
   const handleSubmit = (e) => {
@@ -38,6 +38,7 @@ const Contact = () => {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
             >
+              {/* Email */}
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                     <Mail className="h-5 w-5 text-blue-600" />
@@ -47,26 +48,24 @@ const Contact = () => {
                   <a href="mailto:info@infynixsolutions.in" className="text-gray-600 hover:text-blue-600 transition-colors">info@infynixsolutions.in</a>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
-                    <Phone className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">Phone</h3>
-                  <p className="text-gray-600">[+91-XXXXXXXXXX]</p>
-                </div>
-              </div>
+
+              {/* Address */}
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                     <MapPin className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">Address</h3>
-                  <p className="text-gray-600">Koramangala, Bangalore</p>
+                  <p className="text-gray-600">
+                    6th Main Rd, SBI Staff Colony,<br />
+                    Hoshalli Extension, Stage 1, Vijayanagar,<br />
+                    Bengaluru, Karnataka 560040
+                  </p>
                 </div>
               </div>
             </motion.div>
 
+            {/* Contact form */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
