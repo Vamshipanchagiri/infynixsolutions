@@ -2,7 +2,15 @@ import { motion } from "framer-motion";
 import { Linkedin, Twitter, Github, Instagram } from "lucide-react";
 import Logo from "./Logo";
 
-const footerLinks = {
+type FooterLink = {
+  name: string;
+  href: string;
+};
+
+const footerLinks: {
+  company: FooterLink[];
+  services: FooterLink[];
+} = {
   company: [
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
@@ -17,7 +25,13 @@ const footerLinks = {
   ],
 };
 
-const socialLinks = [
+type SocialLink = {
+  icon: React.ElementType;
+  href: string;
+  label: string;
+};
+
+const socialLinks: SocialLink[] = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Github, href: "#", label: "GitHub" },
@@ -39,30 +53,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mb-3"
-              >
-                <circle cx="12" cy="24" r="6" fill="currentColor" opacity="0.8" />
-                <circle cx="36" cy="24" r="6" fill="currentColor" opacity="0.8" />
-                <circle cx="24" cy="12" r="4" fill="currentColor" opacity="0.6" />
-                <circle cx="24" cy="36" r="4" fill="currentColor" opacity="0.6" />
-                <path d="M16 21 L20 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-                <path d="M28 14 L32 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-                <path d="M16 27 L20 34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-                <path d="M28 34 L32 27" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-                <path d="M18 24 L30 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
-              </svg>
+              <Logo />
               <span className="text-xl font-semibold">
                 Infynix <span className="font-normal opacity-70">Solutions</span>
               </span>
             </div>
             <p className="text-sm text-background/60 leading-relaxed mb-6">
-              Building reliable digital solutions for modern businesses. 
+              Building reliable digital solutions for modern businesses.
               Your trusted technology partner since 2012.
             </p>
             <div className="flex gap-3">
@@ -79,7 +76,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Company Links */}
+          {/* Company */}
           <div>
             <h4 className="font-semibold mb-5">Company</h4>
             <ul className="space-y-3">
@@ -96,7 +93,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services Links */}
+          {/* Services */}
           <div>
             <h4 className="font-semibold mb-5">Services</h4>
             <ul className="space-y-3">
@@ -119,7 +116,10 @@ const Footer = () => {
             <p className="text-sm text-background/60 mb-4">
               Subscribe to our newsletter for tech insights and updates.
             </p>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex gap-2"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 type="email"
                 placeholder="Your email"
