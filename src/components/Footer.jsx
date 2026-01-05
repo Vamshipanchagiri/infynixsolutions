@@ -1,87 +1,153 @@
-import React from 'react';
-import { Link as ScrollLink, scroller } from 'react-scroll';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { Linkedin, Twitter, Github, Instagram } from "lucide-react";
+import Logo from "./Logo";
+
+const footerLinks = {
+  company: [
+    { name: "About", href: "#about" },
+    { name: "Services", href: "#services" },
+    { name: "Careers", href: "#careers" },
+    { name: "Contact", href: "#contact" },
+  ],
+  services: [
+    { name: "Web Development", href: "#services" },
+    { name: "Mobile Apps", href: "#services" },
+    { name: "Cloud Solutions", href: "#services" },
+    { name: "IT Consulting", href: "#services" },
+  ],
+};
+
+const socialLinks = [
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+];
 
 const Footer = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const quickLinks = [
-    { name: 'Home', to: 'home' },
-    { name: 'Services', to: 'services' },
-    { name: 'Careers', to: 'careers' },
-    { name: 'Contact', to: 'contact' },
-  ];
-
-  const handleNavClick = (to) => {
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        scroller.scrollTo(to, {
-          spy: true,
-          smooth: true,
-          offset: -80,
-          duration: 500,
-        });
-      }, 100);
+  const scrollToSection = (href: string) => {
+    const element = document.getElementById(href.slice(1));
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const SmartLink = ({ to, children }) => {
-    if (location.pathname === '/') {
-      return (
-        <ScrollLink
-          to={to}
-          smooth={true}
-          duration={500}
-          offset={-80}
-          className="text-base text-gray-400 hover:text-white cursor-pointer transition-colors duration-300"
-        >
-          {children}
-        </ScrollLink>
-      );
-    }
-    return (
-      <a
-        href={`/#${to}`}
-        onClick={(e) => {
-          e.preventDefault();
-          handleNavClick(to);
-        }}
-        className="text-base text-gray-400 hover:text-white cursor-pointer transition-colors duration-300"
-      >
-        {children}
-      </a>
-    );
   };
 
   return (
-    <footer className="bg-gray-800 text-gray-300">
-      <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8 xl:col-span-1">
-             <RouterLink to="/" onClick={() => handleNavClick('home')} className="cursor-pointer">
-              <span className="text-2xl font-bold text-white">Infynix Solutions</span>
-            </RouterLink>
-            <p className="text-gray-400 text-base">Smart IT. Simple Solutions.</p>
-          </div>
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase">Quick Links</h3>
-                <ul className="mt-4 space-y-4">
-                  {quickLinks.map((link) => (
-                    <li key={link.name}>
-                       <SmartLink to={link.to}>{link.name}</SmartLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+    <footer className="bg-foreground text-background/90">
+      <div className="container-max px-6 md:px-12 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="mb-6">
+              <svg
+                width="36"
+                height="36"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="mb-3"
+              >
+                <circle cx="12" cy="24" r="6" fill="currentColor" opacity="0.8" />
+                <circle cx="36" cy="24" r="6" fill="currentColor" opacity="0.8" />
+                <circle cx="24" cy="12" r="4" fill="currentColor" opacity="0.6" />
+                <circle cx="24" cy="36" r="4" fill="currentColor" opacity="0.6" />
+                <path d="M16 21 L20 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+                <path d="M28 14 L32 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+                <path d="M16 27 L20 34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+                <path d="M28 34 L32 27" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+                <path d="M18 24 L30 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
+              </svg>
+              <span className="text-xl font-semibold">
+                Infynix <span className="font-normal opacity-70">Solutions</span>
+              </span>
+            </div>
+            <p className="text-sm text-background/60 leading-relaxed mb-6">
+              Building reliable digital solutions for modern businesses. 
+              Your trusted technology partner since 2012.
+            </p>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="w-10 h-10 rounded-lg bg-background/10 flex items-center justify-center hover:bg-background/20 transition-colors"
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
+
+          {/* Company Links */}
+          <div>
+            <h4 className="font-semibold mb-5">Company</h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-background/60 hover:text-background transition-colors"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services Links */}
+          <div>
+            <h4 className="font-semibold mb-5">Services</h4>
+            <ul className="space-y-3">
+              {footerLinks.services.map((link) => (
+                <li key={link.name}>
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-sm text-background/60 hover:text-background transition-colors"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h4 className="font-semibold mb-5">Stay Updated</h4>
+            <p className="text-sm text-background/60 mb-4">
+              Subscribe to our newsletter for tech insights and updates.
+            </p>
+            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-background/10 border border-background/10 text-sm placeholder:text-background/40 focus:outline-none focus:border-background/30 transition-colors"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2.5 bg-background text-foreground rounded-lg text-sm font-medium hover:bg-background/90 transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="mt-12 border-t border-gray-700 pt-8">
-          <p className="text-base text-gray-400 text-center">&copy; 2019 Infynix Solutions. All rights reserved.</p>
+
+        {/* Bottom */}
+        <div className="pt-8 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-background/50">
+            © {new Date().getFullYear()} Infynix Solutions. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-sm text-background/50">
+            <a href="#" className="hover:text-background transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-background transition-colors">
+              Terms of Service
+            </a>
+          </div>
         </div>
       </div>
     </footer>
