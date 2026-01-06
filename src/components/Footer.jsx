@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Mail, Phone, MapPin } from 'lucide-react';
+import { Zap, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const footerLinks = {
@@ -66,21 +66,25 @@ const Footer = () => {
             </div>
             
             <p className="text-slate-500 mb-6 leading-relaxed max-w-sm">
-              Your trusted technology partner in Hyderabad. Delivering enterprise-grade digital solutions to businesses worldwide since 2015.
+              Your trusted technology partner in Hyderabad. Delivering enterprise-grade digital solutions to businesses worldwide.
             </p>
 
             <div className="space-y-3 text-sm text-slate-500">
               <div className="flex items-center gap-3 hover:text-slate-800 transition-colors">
                 <Mail className="w-4 h-4 text-slate-400" />
-                <a href="mailto:info@infynixsolutions.in">info@infynixsolutions.in</a>
+                <a href="mailto:info@infynixsolutions.in">
+                  info@infynixsolutions.in
+                </a>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-slate-400" />
-                <span>+91 40 1234 5678</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-slate-400" />
-                <span>HITEC City, Hyderabad, India</span>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-slate-400 mt-1" />
+                <span className="whitespace-pre-line">
+                  Infynix Solutions
+                  {"\n"}3rd Floor, Phoenix Tech Tower,
+                  {"\n"}Financial District, Gachibowli,
+                  {"\n"}Hyderabad – 500032, Telangana, India
+                </span>
               </div>
             </div>
           </motion.div>
@@ -90,10 +94,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-slate-500 hover:text-slate-800 transition-colors"
-                  >
+                  <a href={link.href} className="text-slate-500 hover:text-slate-800">
                     {link.name}
                   </a>
                 </li>
@@ -106,10 +107,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-slate-500 hover:text-slate-800 transition-colors"
-                  >
+                  <a href={link.href} className="text-slate-500 hover:text-slate-800">
                     {link.name}
                   </a>
                 </li>
@@ -122,10 +120,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-slate-500 hover:text-slate-800 transition-colors"
-                  >
+                  <a href={link.href} className="text-slate-500 hover:text-slate-800">
                     {link.name}
                   </a>
                 </li>
@@ -134,17 +129,15 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
           className="border-t border-slate-200 pt-8"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-slate-400 text-sm">
-              © 2015 Infynix Solutions Pvt Ltd. All rights reserved.
-            </p>
-          </div>
+          <p className="text-slate-400 text-sm text-center">
+            © 2015 Infynix Solutions Pvt Ltd. All rights reserved.
+          </p>
         </motion.div>
       </div>
     </footer>
